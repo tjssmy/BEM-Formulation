@@ -1030,7 +1030,7 @@ We begin with the second derivative of the Greens' function with respect to $x$.
      \frac{\partial}{\partial x} G(\rho, \rho')_{sa} &=-\frac{1}{2\pi} \frac{(x-x')}{(x-x')^2+(y-y')^2}
 \end{align*}
 
-While it is technically possible to first directly evaluate the second derivative of the Green's function and then substitute the appropriate small-order approximations, the math becomes a lot more complex and unintuitive.
+While it is technically possible to first directly evaluate the second derivative of the Green's function and then substitute the appropriate small-order approximations, the math becomes a lot more complex and intuitive.
 
 \begin{align*}
     \frac{\partial^2}{\partial x^2}\left(\frac{\partial}{\partial x} G(\rho, \rho')_{sa}\right) &= \frac{\partial}{\partial x}\left(\frac{-(x-x')}{2\pi((x-x')^2+(y-y')^2)}\right)\\
@@ -1040,21 +1040,71 @@ While it is technically possible to first directly evaluate the second derivativ
 \end{align*}
 
 %%
-Let $v' \to 0$ and define $w = u -u'$, $A = \cos^2{\theta}$, $B = \sin{\theta}\cos{\theta}$, $C = \sin{\theta}\cos{\theta}$,
+Let $v' \to 0$ and define $w = u -u'$, $A = \cos^2{\theta}$, $B = \sin{\theta}\cos{\theta}$, $C = \sin^2{\theta}$, $A+C = 1$
 \begin{align*}
     \frac{\partial^2}{\partial x^2}\left(\frac{\partial}{\partial x} G(\rho, \rho')_{sa}\right) 
-    &=\frac{-1}{2\pi}\left(\frac{1}{w^2+v^2} - \frac{2(w^2 A - 2wv B+v^2 C}{(w^2+v^2)^2}\right)
+    &=\frac{-1}{2\pi}\left(\frac{1}{w^2+v^2} - \frac{2(w^2 A - 2wv B+v^2 C)}{(w^2+v^2)^2}\right)\\
+    &=\frac{-1}{2\pi}\left(\frac{w^2+v^2}{(w^2+v^2)^2} - \frac{2(w^2 A - 2wv B+v^2 C)}{(w^2+v^2)^2}\right)\\
+    &=\frac{-1}{2\pi}\left(\frac{(1-2A) w^2 + 4vBw+(1-2C)v^2 }{(w^2+v^2)^2}\right)
 \end{align*}
-\end{align*}
-%%
 \begin{align*}
-    \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= \int_{-\Delta l/2}^{\Delta l/2}\frac{-1}{2\pi} \left(\frac{1}{(u-u')^2+(v-v')^2} - \frac{2((u-u')^2\cos^2{\theta} - 2(u-u')(v-v')\sin{\theta}\cos{\theta}+(v-v')^2\sin^2{\theta})}{((u-u')^2+(v-v')^2)^2}\right)du'\\
-    =&\frac{-1}{2\pi}(\left(\frac{-\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right) - \cos^2{\theta}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2} - \frac{\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right) + (odd)\\
-        &-\sin^2{\theta}\left(-\frac{(u-u')}{(u-u')^2 + (v-v')^2} - \frac{\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right))|_{-\Delta l/2}^{\Delta l/2}\\
-    =&\frac{1}{2\pi}\left(\cos^2{\theta}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2}\right) -\sin^2{\theta}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2}\right)\right)|_{-\Delta l/2}^{\Delta l/2}
+    \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= \frac{-1}{2\pi} \int_{w_l}^{w_u}
+    \frac{(1-2A) w^2+ 4vBw+(1-2C)v^2 }{(w^2+v^2)^2} dw 
 \end{align*}
 
-Thankfully, a lot of the like-terms combine together and cancel each other out, especially since the value of $\tan^{-1}(1/v)/v$ does not converge. Similar to the previous singularities, we need to apply $u=0, v=v'=0$.
+From Wolfram,
+\begin{align*}
+    \int \frac{(1-2A) w^2+ 4vBw+(1-2C)v^2 }{(w^2+v^2)^2} dw &= 
+    \frac{-2Bv + (A-C) w }{w^2+v^2} - \frac{(A+C-1)\tan^{-1}\left(\frac{w}{v}\right)}{v}  \\
+    &= \frac{-2Bv + (A-C) w }{w^2+v^2}  \quad \text{as} \quad A+C = 1
+\end{align*}
+
+For a point not on the segment $\delta \ell$ ($v \neq 0)$
+\begin{align*}
+     \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= 
+      \frac{-1}{2\pi} \left[\frac{-2Bv + (A-C) w_u }{w^2+v^2} \right]_{w_l}^{w_u}\\
+      &= \frac{-1}{2\pi} \left( \frac{-2Bv + (A-C) w_u }{w_u^2+v^2} -  \frac{-2Bv + (A-C) w_l }{w_l^2+v^2}\right)
+\end{align*}If $v =0$ then we have,
+\begin{align*}
+    \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= \frac{-1}{2\pi} \int_{w_l}^{w_u}
+    \frac{1-2A}{w^2} dw \\
+     &= \frac{-(1-2A)}{2\pi} \int_{w_l}^{w_u}    \frac{1}{w^2} dw 
+\end{align*}which is a strong singularity but Cauchy limits seem to work,
+\begin{align*}
+ \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &=
+ \frac{-(1-2A)}{2\pi} \lim_{\epsilon \to 0}\left[ \int_{w_l}^{\epsilon}   \frac{1}{w^2} dw +  \int_{\epsilon}^{w_u}    \frac{1}{w^2} dw \right] \\
+ &= \frac{-(1-2A)}{2\pi} \lim_{\epsilon \to 0}\left[ \left[ \frac{-1}{w} \right]_{w_l}^{\epsilon}  +  \left[ \frac{-1}{w} \right]_{\epsilon}^{w_u} \right]\\
+  &= \frac{-(1-2A)}{2\pi} \lim_{\epsilon \to 0}\left[ \left( \frac{-1}{\epsilon} + \frac{1}{w_l} \right)
+  +  \left( \frac{-1}{w_u}  + \frac{1}{\epsilon} \right) \right] \\
+  &= \frac{-(1-2A)}{2\pi} \lim_{\epsilon \to 0}\left[ \left( \frac{1}{w_l}-\frac{1}{w_u} \right) \right]\\
+   &= \frac{-(1-2A)}{2\pi} \left( \frac{1}{w_l}-\frac{1}{w_u} \right)
+\end{align*}
+for $u = 0$ and $u'= 0$, $w_l = \delta \ell/2$ and $w_u = - \delta \ell/2$
+\begin{align*}
+    \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= \frac{-(1-2A)}{2\pi} \left( \frac{4}{\delta \ell} \right)  = \frac{-(1-2 \sin^2{\theta})}{\pi} \left( \frac{2}{\delta \ell} \right)
+\end{align*}
+
+% \begin{align*}
+%   \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' = \frac{-1}{2\pi} \lim_{\epsilon \to 0} &\left[ \int_{w_l}^{\epsilon}
+%     \frac{(1-2A) w^2+ 4vBw+(1-2C)v^2 }{(w^2+v^2)^2} dw + \right.\\
+%     &\left. \int_{\epsilon}^{w_u} \frac{(1-2A) w^2+ 4vBw+(1-2C)v^2 }{(w^2+v^2)^2} dw \right]
+% \end{align*}
+
+% \begin{align*}
+%     \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= \frac{-1}{2\pi} \lim_{\epsilon \to 0}\left[  \left[
+%      \frac{-2Bv + (A-C) w }{w^2+v^2} \right]_{w_l}^{\epsilon} + \frac{-1}{2\pi} \left[
+%      \frac{-2Bv + (A-C) w }{w^2+v^2} \right]_{\epsilon}^{w_u} \right]\\
+%     &= 
+%     \end{align*}
+%%
+% \begin{align*}
+%     \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= \int_{-\Delta l/2}^{\Delta l/2}\frac{-1}{2\pi} \left(\frac{1}{(u-u')^2+(v-v')^2} - \frac{2((u-u')^2\cos^2{\theta} - 2(u-u')(v-v')\sin{\theta}\cos{\theta}+(v-v')^2\sin^2{\theta})}{((u-u')^2+(v-v')^2)^2}\right)du'\\
+%     =&\frac{-1}{2\pi}(\left(\frac{-\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right) - \cos^2{\theta}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2} - \frac{\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right) + (odd)\\
+%         &-\sin^2{\theta}\left(-\frac{(u-u')}{(u-u')^2 + (v-v')^2} - \frac{\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right))|_{-\Delta l/2}^{\Delta l/2}\\
+%     =&\frac{1}{2\pi}\left(\cos^2{\theta}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2}\right) -\sin^2{\theta}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2}\right)\right)|_{-\Delta l/2}^{\Delta l/2}
+% \end{align*}
+
+% Thankfully, a lot of the like-terms combine together and cancel each other out, especially since the value of $\tan^{-1}(1/v)/v$ does not converge. Similar to the previous singularities, we need to apply $u=0, v=v'=0$.
 
 \begin{align*}
     \int_{-\Delta l/2}^{\Delta l/2}\frac{\partial^2}{\partial x^2}G(\rho, \rho')d\rho' &= \left(\cos^2\theta - \sin^2\theta\right)\frac{1}{2\pi}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2}\right)|_{-\Delta l/2}^{\Delta l/2}\\
