@@ -1039,6 +1039,14 @@ While it is technically possible to first directly evaluate the second derivativ
     &=\frac{-1}{2\pi}\left(\frac{1}{(u-u')^2+(v-v')^2} - \frac{2((u-u')^2\cos^2{\theta} - 2(u-u')(v-v')\sin{\theta}\cos{\theta}+(v-v')^2\sin^2{\theta})}{((u-u')^2+(v-v')^2)^2}\right)
 \end{align*}
 
+%%
+Let $v' \to 0$ and define $w = u -u'$, $A = \cos^2{\theta}$, $B = \sin{\theta}\cos{\theta}$, $C = \sin{\theta}\cos{\theta}$,
+\begin{align*}
+    \frac{\partial^2}{\partial x^2}\left(\frac{\partial}{\partial x} G(\rho, \rho')_{sa}\right) 
+    &=\frac{-1}{2\pi}\left(\frac{1}{w^2+v^2} - \frac{2(w^2 A - 2wv B+v^2 C}{(w^2+v^2)^2}\right)
+\end{align*}
+\end{align*}
+%%
 \begin{align*}
     \int_{\delta\ell}\frac{\partial^2}{\partial x^2}G(\rho,\rho')\, d\rho' &= \int_{-\Delta l/2}^{\Delta l/2}\frac{-1}{2\pi} \left(\frac{1}{(u-u')^2+(v-v')^2} - \frac{2((u-u')^2\cos^2{\theta} - 2(u-u')(v-v')\sin{\theta}\cos{\theta}+(v-v')^2\sin^2{\theta})}{((u-u')^2+(v-v')^2)^2}\right)du'\\
     =&\frac{-1}{2\pi}(\left(\frac{-\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right) - \cos^2{\theta}\left(\frac{(u-u')}{(u-u')^2 + (v-v')^2} - \frac{\tan^{-1}(\frac{u-u'}{v-v'})}{(v-v')}\right) + (odd)\\
